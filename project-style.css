@@ -1,0 +1,157 @@
+/* ==========================================================================
+   УНИВЕРСАЛЬНЫЙ СТИЛЬ СТРАНИЦЫ ПРОЕКТА
+   ========================================================================== */
+.back-btn {
+    position: fixed;
+    top: 30px;
+    left: 40px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    font-family: monospace;
+    border: 1px solid #333333;
+    padding: 10px 20px;
+    background-color: #000000;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.back-btn:hover {
+    border-color: #ff00ff;
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.4);
+}
+
+.project-page-container {
+    max-width: 1000px;
+    margin: 120px auto 80px auto;
+    padding: 0 20px;
+}
+
+/* Секция Hero */
+.hero-block {
+    margin-bottom: 60px;
+    text-align: left;
+}
+
+.project-tag {
+    font-family: monospace;
+    color: #ff00ff;
+    font-size: 14px;
+    letter-spacing: 2px;
+}
+
+.project-main-title {
+    font-size: 48px;
+    margin: 10px 0 30px 0;
+    letter-spacing: 3px;
+}
+
+.main-image-holder {
+    border: 1px solid #222222;
+    background-color: #111111;
+}
+
+.main-image-holder img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Блок информации */
+.info-block {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+    padding: 40px 0;
+    border-top: 1px solid #222222;
+    border-bottom: 1px solid #222222;
+    margin-bottom: 60px;
+}
+
+.info-item h3 {
+    font-size: 16px;
+    color: #888888;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-family: monospace;
+}
+
+.info-item p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #dddddd;
+}
+
+/* Секции процессов */
+.section-title {
+    font-size: 22px;
+    font-family: monospace;
+    margin-bottom: 30px;
+    color: #ffffff;
+}
+
+.steps-block {
+    margin-bottom: 60px;
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.step-card {
+    background-color: #0a0a0a;
+    border: 1px solid #151515;
+    padding: 20px;
+}
+
+.step-img-wrapper {
+    background-color: #000;
+    margin-bottom: 15px;
+    border: 1px solid #222222;
+}
+
+.step-img-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.step-card h4 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.step-card p {
+    font-size: 14px;
+    color: #888888;
+    line-height: 1.5;
+}
+
+/* Спецификации */
+.uikit-section {
+    background-color: #070707;
+    border: 1px dashed #333333;
+    padding: 30px;
+}
+
+.specs-wrapper p {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+    .back-btn {
+        position: static;
+        display: inline-block;
+        margin-bottom: 30px;
+    }
+    .project-page-container {
+        margin-top: 20px;
+    }
+    .info-block, .steps-grid {
+        grid-template-columns: 1fr;
+    }
+}

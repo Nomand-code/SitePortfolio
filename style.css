@@ -1,0 +1,261 @@
+/* ==========================================================================
+   1. СБРОС СТИЛЕЙ И БАЗОВЫЕ НАСТРОЙКИ
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: 'Courier New', Courier, monospace; /* Временный готический/системный шрифт */
+    overflow-x: hidden;
+    scroll-behavior: smooth; /* Плавный скролл по пунктам меню */
+}
+
+/* ==========================================================================
+   2. ШАПКА И НАВИГАЦИЯ (HEADER & NAV)
+   ========================================================================== */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 40px 60px;
+    position: fixed; /* Меню всегда остается сверху при скролле */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0));
+}
+
+/* Блок логотипа */
+.logo-block {
+    display: flex;
+    flex-direction: column;
+}
+
+.brand {
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: normal;
+    margin-top: 5px;
+    font-family: 'Georgia', serif; /* Для кастомного вида «Wall of Despair» */
+    font-style: italic;
+    opacity: 0.9;
+}
+
+.cursor {
+    font-size: 20px;
+    display: inline-block;
+    margin-left: 5px;
+    animation: blink 1s infinite; /* Курсор будет мигать */
+}
+
+/* Меню навигации */
+.nav {
+    display: flex;
+    gap: 30px;
+    margin-top: 10px;
+}
+
+.nav-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 18px;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    opacity: 1;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.6); /* Эффект свечения при наведении */
+}
+
+/* ==========================================================================
+   3. ГЛАВНЫЙ ЭКРАН (WELCOME SCREEN)
+   ========================================================================== */
+.welcome-screen {
+    height: 100vh; /* Занимает весь экран */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.welcome-text {
+    font-size: 48px;
+    font-weight: 300;
+    letter-spacing: 3px;
+    text-align: center;
+    font-family: system-ui, -apple-system, sans-serif;
+    animation: pulse 4s infinite alternate; /* Текст плавно дышит */
+}
+
+/* ==========================================================================
+   4. СЕКЦИЯ ПОРТФОЛИО (ДЛЯ ОСТАЛЬНЫХ РАБОТ)
+   ========================================================================== */
+.portfolio-section {
+    min-height: 100vh;
+    padding: 100px 60px;
+    background-color: #050505; /* Чуть светлее чисто черного для контраста */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid #111111;
+}
+
+/* ==========================================================================
+   5. АНИМАЦИИ (АНИМАЦИОННЫЕ ЭФФЕКТЫ)
+   ========================================================================== */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+@keyframes pulse {
+    0% { opacity: 0.7; text-shadow: 0 0 5px rgba(255,255,255,0.2); }
+    100% { opacity: 1; text-shadow: 0 0 20px rgba(255,255,255,0.5); }
+}
+
+/* ==========================================================================
+   6. АДАПТИВНОСТЬ ПОД МОБИЛЬНЫЕ ТЕЛЕФОНЫ
+   ========================================================================== */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding: 20px;
+    }
+    .logo-block {
+        align-items: center;
+    }
+    .nav {
+        gap: 15px;
+    }
+    .welcome-text {
+        font-size: 32px;
+    }
+}
+/* ==========================================================================
+   ИГРОВОЕ МЕНЮ ВЫБОРА ПРОЕКТОВ
+   ========================================================================== */
+.menu-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.menu-header {
+    margin-bottom: 40px;
+    font-family: monospace;
+}
+
+.system-status {
+    color: #ff00ff; /* Розовый неоновый акцент */
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.menu-hint {
+    color: #666666;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+/* Контейнер меню */
+.project-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Элемент меню (ссылка) */
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 25px 30px;
+    background-color: #050505;
+    border: 1px solid #111111;
+    text-decoration: none;
+    color: #ffffff;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Номер проекта */
+.item-number {
+    font-family: monospace;
+    font-size: 18px;
+    color: #444444;
+    margin-right: 30px;
+    transition: color 0.3s ease;
+}
+
+/* Название проекта */
+.item-name {
+    font-size: 22px;
+    font-weight: 500;
+    flex-grow: 1; /* Растягивает текст, толкая тип вправо */
+    letter-spacing: 1px;
+}
+
+/* Тип проекта (тег справа) */
+.item-type {
+    font-family: monospace;
+    font-size: 14px;
+    color: #666666;
+    transition: color 0.3s ease;
+}
+
+/* ЭФФЕКТЫ ПРИ НАВЕДЕНИИ (Эффект фокуса на уровне) */
+.project-menu:hover .menu-item {
+    opacity: 0.3; /* Все элементы затеняются, когда мы наводим на меню */
+}
+
+.project-menu .menu-item:hover {
+    opacity: 1; /* Тот элемент, на который навели, горит ярко */
+    background-color: #0a0a0a;
+    border-color: #ff00ff;
+    transform: translateX(10px); /* Легкий сдвиг вправо, как в играх */
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.15);
+}
+
+.menu-item:hover .item-number {
+    color: #ff00ff; /* Номер загорается неоном */
+}
+
+.menu-item:hover .item-type {
+    color: #ffffff;
+}
+
+/* Адаптация под мобильные экраны */
+@media (max-width: 768px) {
+    .menu-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 20px;
+    }
+    .item-number {
+        margin-right: 0;
+        font-size: 14px;
+    }
+    .item-name {
+        font-size: 18px;
+    }
+    .project-menu .menu-item:hover {
+        transform: none; /* На мобилках сдвиг убираем */
+    }
+}
