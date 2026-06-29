@@ -1,0 +1,522 @@
+/* ============================================================
+   FORMA STUDIO — Catalog CSS
+   Architecture: BEM | Layout: CSS Grid | Theme: CSS Variables
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. CSS CUSTOM PROPERTIES
+   ------------------------------------------------------------ */
+
+:root {
+  /* --- Palette --- */
+  --color-bg-page:       #F7F5F2;
+  --color-bg-card:       #FFFFFF;
+  --color-border:        #E8E4DF;
+
+  --color-text-primary:  #1A1A18;
+  --color-text-secondary:#6B6560;
+  --color-text-inverse:  #FFFFFF;
+
+  --color-price:         #1A1A18;
+  --color-price-old:     #A09890;
+  --color-price-sale:    #8B7355;
+
+  --color-badge-new-bg:  #C8B89A;
+  --color-badge-new-text:#FFFFFF;
+  --color-badge-sale-bg: #8B7355;
+  --color-badge-sale-text:#FFFFFF;
+
+  --color-cta-bg:        #2C2C2A;
+  --color-cta-bg-hover:  #4A4845;
+  --color-cta-text:      #2C2C2A;
+  --color-cta-text-hover:#FFFFFF;
+  --color-wishlist:      #A09890;
+  --color-wishlist-hover:#C8B89A;
+
+  --color-overlay:       rgba(26, 26, 24, 0.06);
+  --color-shadow-card:   rgba(26, 24, 20, 0.10);
+
+  /* --- Typography --- */
+  --font-serif:   'Cormorant Garamond', Georgia, serif;
+  --font-sans:    'DM Sans', system-ui, sans-serif;
+
+  --text-eyebrow: 0.6875rem;   /* 11px */
+  --text-section: 2.25rem;     /* 36px */
+  --text-category:0.75rem;     /* 12px */
+  --text-name:    1.375rem;    /* 22px */
+  --text-desc:    0.8125rem;   /* 13px */
+  --text-price:   1.125rem;    /* 18px */
+  --text-button:  0.6875rem;   /* 11px */
+  --text-badge:   0.5625rem;   /* 9px  */
+
+  --leading-tight: 1.2;
+  --leading-snug:  1.35;
+  --leading-normal:1.5;
+
+  /* --- Spacing (8pt grid) --- */
+  --space-1:  0.25rem;   /*  4px */
+  --space-2:  0.5rem;    /*  8px */
+  --space-3:  0.75rem;   /* 12px */
+  --space-4:  1rem;      /* 16px */
+  --space-5:  1.25rem;   /* 20px */
+  --space-6:  1.5rem;    /* 24px */
+  --space-8:  2rem;      /* 32px */
+  --space-10: 2.5rem;    /* 40px */
+  --space-12: 3rem;      /* 48px */
+  --space-16: 4rem;      /* 64px */
+  --space-20: 5rem;      /* 80px */
+  --space-24: 6rem;      /* 96px */
+
+  /* --- Motion --- */
+  --ease-smooth:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out:     cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast:     0.18s;
+  --dur-base:     0.28s;
+  --dur-slow:     0.42s;
+
+  /* --- Shape --- */
+  --radius-card:  2px;
+  --radius-badge: 2px;
+}
+
+
+/* ------------------------------------------------------------
+   2. RESET & BASE
+   ------------------------------------------------------------ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-bg-page);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+ul[role="list"] {
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  appearance: none;
+}
+
+button:focus-visible {
+  outline: 1.5px solid var(--color-cta-bg);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration:  0.01ms !important;
+  }
+}
+
+
+/* ------------------------------------------------------------
+   3. CATALOG — SECTION BLOCK
+   ------------------------------------------------------------ */
+
+.catalog {
+  padding-block: var(--space-20) var(--space-24);
+  padding-inline: var(--space-8);
+  max-width: 88rem;
+  margin-inline: auto;
+}
+
+/* --- Header --- */
+
+.catalog__header {
+  margin-bottom: var(--space-12);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.catalog__eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-eyebrow);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  line-height: var(--leading-normal);
+}
+
+.catalog__title {
+  font-family: var(--font-serif);
+  font-size: var(--text-section);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  color: var(--color-text-primary);
+  letter-spacing: -0.01em;
+}
+
+/* --- Grid --- */
+
+.catalog__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+  gap: var(--space-6) var(--space-5);
+  align-items: start;
+}
+
+
+/* ------------------------------------------------------------
+   4. CARD — COMPONENT BLOCK
+   ------------------------------------------------------------ */
+
+.card {
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  display: flex;
+  flex-direction: column;
+  transition:
+    transform    var(--dur-base) var(--ease-smooth),
+    box-shadow   var(--dur-base) var(--ease-smooth),
+    border-color var(--dur-base) var(--ease-smooth);
+  will-change: transform;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px var(--color-shadow-card);
+  border-color: transparent;
+}
+
+
+/* --- Media --- */
+
+.card__media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 5 / 6;
+  background-color: var(--color-bg-page);
+}
+
+/* Subtle darkening overlay on hover */
+.card__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-overlay);
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-smooth);
+  pointer-events: none;
+}
+
+.card:hover .card__media::after {
+  opacity: 1;
+}
+.card__images-slider {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  
+  /* Включаем горизонтальный скролл */
+  overflow-x: auto;
+  overflow-y: hidden;
+  
+  /* Делаем прокрутку плавной и "магнитной" (каждая картинка прилипает к краю) */
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  
+  /* Прячем стандартный некрасивый скроллбар в Webkit и Firefox */
+  scrollbar-width: none; /* Firefox */
+}
+
+.card__images-slider::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+.card__image {
+  flex: 0 0 100%;          /* Дописать */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-smooth);
+  will-change: transform;
+  scroll-snap-align: start;
+  border-radius: 2px;
+}
+
+
+/* --- Badge --- */
+
+.card__badge {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-4);
+  font-family: var(--font-sans);
+  font-size: var(--text-badge);
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-badge);
+  line-height: 1.6;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.card__badge--new {
+  background-color: var(--color-badge-new-bg);
+  color: var(--color-badge-new-text);
+}
+
+.card__badge--sale {
+  background-color: var(--color-badge-sale-bg);
+  color: var(--color-badge-sale-text);
+}
+
+
+/* --- Quick Look (hover reveal) --- */
+
+.card__quick-look {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--color-cta-bg);
+  color: var(--color-text-inverse);
+  font-family: var(--font-sans);
+  font-size: var(--text-button);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding-block: var(--space-4);
+  text-align: center;
+  transform: translateY(100%);
+  opacity: 0;
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    opacity   var(--dur-base) var(--ease-smooth);
+  z-index: 2;
+}
+
+.card:hover .card__quick-look {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.card__quick-look:hover {
+  background-color: var(--color-cta-bg-hover);
+}
+
+
+/* --- Meta block --- */
+
+.card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-5) var(--space-5) var(--space-4);
+  flex: 1;
+}
+
+.card__category {
+  font-family: var(--font-sans);
+  font-size: var(--text-category);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  line-height: var(--leading-normal);
+}
+
+.card__name {
+  font-family: var(--font-serif);
+  font-size: var(--text-name);
+  font-weight: 400;
+  line-height: var(--leading-snug);
+  color: var(--color-text-primary);
+  letter-spacing: 0.005em;
+  transition: color var(--dur-fast) var(--ease-smooth);
+}
+
+.card:hover .card__name {
+  color: var(--color-price-sale);
+}
+
+.card__description {
+  font-family: var(--font-sans);
+  font-size: var(--text-desc);
+  font-weight: 300;
+  color: var(--color-text-secondary);
+  line-height: var(--leading-normal);
+  letter-spacing: 0.01em;
+}
+
+
+/* --- Pricing --- */
+
+.card__pricing {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.card__price {
+  font-family: var(--font-sans);
+  font-size: var(--text-price);
+  font-weight: 300;
+  color: var(--color-price);
+  line-height: var(--leading-tight);
+  letter-spacing: 0.01em;
+}
+
+.card__price--sale {
+  color: var(--color-price-sale);
+}
+
+.card__price--old {
+  font-size: 0.875rem;
+  color: var(--color-price-old);
+}
+
+.card__price--old s {
+  text-decoration: line-through;
+  text-decoration-color: var(--color-price-old);
+}
+
+
+/* --- Footer --- */
+
+.card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-top: auto;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+
+/* --- CTA Button --- */
+
+.card__action {
+  flex: 1;
+  font-family: var(--font-sans);
+  font-size: var(--text-button);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-cta-text);
+  background-color: transparent;
+  border: 1px solid var(--color-cta-bg);
+  padding-block: var(--space-3);
+  padding-inline: var(--space-4);
+  border-radius: var(--radius-badge);
+  transition:
+    background-color var(--dur-base) var(--ease-smooth),
+    color            var(--dur-base) var(--ease-smooth),
+    letter-spacing   var(--dur-base) var(--ease-smooth),
+    transform        var(--dur-fast) ease-in;
+  line-height: var(--leading-normal);
+}
+
+.card__action:hover {
+  background-color: var(--color-cta-bg);
+  color: var(--color-cta-text-hover);
+  letter-spacing: 0.20em;
+}
+
+.card__action:active {
+  transform: scale(0.97);
+  background-color: var(--color-cta-bg-hover);
+  transition-duration: var(--dur-fast);
+}
+
+
+/* --- Wishlist Button --- */
+
+.card__wishlist {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  color: var(--color-wishlist);
+  transition:
+    color     var(--dur-base) var(--ease-smooth),
+    transform var(--dur-base) var(--ease-smooth);
+}
+
+.card__wishlist:hover {
+  color: var(--color-wishlist-hover);
+  transform: scale(1.18);
+}
+
+.card__wishlist:active {
+  transform: scale(0.92);
+}
+
+.card__wishlist-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  display: block;
+  transition: fill var(--dur-base) var(--ease-smooth);
+}
+
+.card__wishlist[aria-pressed="true"] .card__wishlist-icon {
+  fill: var(--color-wishlist-hover);
+  stroke: var(--color-wishlist-hover);
+}
+
+
+/* ------------------------------------------------------------
+   5. RESPONSIVE OVERRIDES (typography & spacing only)
+   ------------------------------------------------------------ */
+
+@media (max-width: 48rem) {
+  .catalog {
+    padding-block: var(--space-12) var(--space-16);
+    padding-inline: var(--space-4);
+  }
+
+  .catalog__title {
+    font-size: 1.75rem;
+  }
+
+  .catalog__header {
+    margin-bottom: var(--space-8);
+  }
+
+  .catalog__grid {
+    gap: var(--space-4);
+  }
+}
+
+@media (max-width: 30rem) {
+  .catalog {
+    padding-inline: var(--space-3);
+  }
+
+  .catalog__title {
+    font-size: 1.5rem;
+  }
+}
+

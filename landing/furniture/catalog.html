@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Каталог — Forma Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="catalog.css" />
+</head>
+<body>
+
+<section class="catalog" aria-labelledby="catalog-title">
+
+  <header class="catalog__header">
+    <p class="catalog__eyebrow">Коллекция 2025</p>
+    <h2 class="catalog__title" id="catalog-title">Предметы для дома</h2>
+  </header>
+
+  <ul class="catalog__grid" role="list">
+
+    <!-- Карточка 1 — New -->
+    <li class="catalog__item">
+      <article class="card" aria-label="Кресло Sten">
+        <div class="card__media">
+           <div class="card__images-slider">
+              <img class="card__image" src="img/Sten/1.jfif"  />
+              <img class="card__image" src="img/Sten/2.jfif"  />
+              <img class="card__image" src="img/Sten/3.jfif"  />
+  </div>
+          <span class="card__badge card__badge--new" aria-label="Новинка">New</span>
+          <button class="card__quick-look" type="button" aria-label="Быстрый просмотр кресла Sten">
+            Быстрый просмотр
+          </button>
+        </div>
+
+        <div class="card__meta">
+          <p class="card__category">Кресла / Лаунж</p>
+          <h3 class="card__name">Кресло Sten</h3>
+          <p class="card__description">Натуральная кожа, массив ясеня</p>
+
+          <div class="card__pricing">
+            <span class="card__price">142 000 ₽</span>
+          </div>
+
+          <div class="card__footer">
+            <button class="card__action" type="button" aria-label="Добавить кресло Sten в корзину">
+              В корзину
+            </button>
+            <button class="card__wishlist" type="button" aria-label="Добавить кресло Sten в избранное" aria-pressed="false">
+              <svg class="card__wishlist-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 21C12 21 3 14.5 3 8.5C3 5.42 5.42 3 8.5 3C10.24 3 11.81 3.89 12 4C12.19 3.89 13.76 3 15.5 3C18.58 3 21 5.42 21 8.5C21 14.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </article>
+    </li>
+
+    <!-- Карточка 2 — Sale -->
+    <li class="catalog__item">
+      <article class="card" aria-label="Диван Lago">
+        <div class="card__media">
+          <div class="card__images-slider">
+            <img class="card__image" src="img/Lago/1.jfif"  />
+            <img class="card__image" src="img/Lago/2.jfif"  />
+            <img class="card__image" src="img/Lago/3.jfif"  />
+          </div>
+            <span class="card__badge card__badge--sale" aria-label="Скидка">Sale</span>
+          <button class="card__quick-look" type="button" aria-label="Быстрый просмотр дивана Lago">
+            Быстрый просмотр
+          </button>
+        </div>
+
+        <div class="card__meta">
+          <p class="card__category">Диваны / Двухместные</p>
+          <h3 class="card__name">Диван Lago</h3>
+          <p class="card__description">Шерстяная ткань, сталь с матовым покрытием</p>
+
+          <div class="card__pricing">
+            <span class="card__price card__price--sale">218 000 ₽</span>
+            <span class="card__price card__price--old">
+              <s>272 000 ₽</s>
+            </span>
+          </div>
+
+          <div class="card__footer">
+            <button class="card__action" type="button" aria-label="Добавить диван Lago в корзину">
+              В корзину
+            </button>
+            <button class="card__wishlist" type="button" aria-label="Добавить диван Lago в избранное" aria-pressed="false">
+              <svg class="card__wishlist-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 21C12 21 3 14.5 3 8.5C3 5.42 5.42 3 8.5 3C10.24 3 11.81 3.89 12 4C12.19 3.89 13.76 3 15.5 3C18.58 3 21 5.42 21 8.5C21 14.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </article>
+    </li>
+
+    <!-- Карточка 3 — без бейджа -->
+    <li class="catalog__item">
+      <article class="card" aria-label="Стол Bruk">
+        <div class="card__media">
+           <div class="card__images-slider">
+          <img class="card__image" src="img/Bruk/1.jfif"  />
+          <img class="card__image" src="img/Bruk/2.jfif"  />
+          <img class="card__image" src="img/Bruk/3.jfif"  />
+        </div>
+          <button class="card__quick-look" type="button" aria-label="Быстрый просмотр стола Bruk">
+            Быстрый просмотр
+          </button>
+        </div>
+
+        <div class="card__meta">
+          <p class="card__category">Столы / Обеденные</p>
+          <h3 class="card__name">Стол Bruk</h3>
+          <p class="card__description">Массив беленого дуба, чёрная сталь</p>
+
+          <div class="card__pricing">
+            <span class="card__price">196 000 ₽</span>
+          </div>
+
+          <div class="card__footer">
+            <button class="card__action" type="button" aria-label="Добавить стол Bruk в корзину">
+              В корзину
+            </button>
+            <button class="card__wishlist" type="button" aria-label="Добавить стол Bruk в избранное" aria-pressed="false">
+              <svg class="card__wishlist-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 21C12 21 3 14.5 3 8.5C3 5.42 5.42 3 8.5 3C10.24 3 11.81 3.89 12 4C12.19 3.89 13.76 3 15.5 3C18.58 3 21 5.42 21 8.5C21 14.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </article>
+    </li>
+<li class="catalog__item">
+      <article class="card" aria-label="Кресло Sten">
+        <div class="card__media">
+           <div class="card__images-slider">
+              <img class="card__image" src="img/Sten/1.jfif"  />
+              <img class="card__image" src="img/Sten/2.jfif"  />
+              <img class="card__image" src="img/Sten/3.jfif"  />
+  </div>
+          <span class="card__badge card__badge--new" aria-label="Новинка">New</span>
+          <button class="card__quick-look" type="button" aria-label="Быстрый просмотр кресла Sten">
+            Быстрый просмотр
+          </button>
+        </div>
+
+        <div class="card__meta">
+          <p class="card__category">Кресла / Лаунж</p>
+          <h3 class="card__name">Кресло Sten</h3>
+          <p class="card__description">Натуральная кожа, массив ясеня</p>
+
+          <div class="card__pricing">
+            <span class="card__price">142 000 ₽</span>
+          </div>
+
+          <div class="card__footer">
+            <button class="card__action" type="button" aria-label="Добавить кресло Sten в корзину">
+              В корзину
+            </button>
+            <button class="card__wishlist" type="button" aria-label="Добавить кресло Sten в избранное" aria-pressed="false">
+              <svg class="card__wishlist-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 21C12 21 3 14.5 3 8.5C3 5.42 5.42 3 8.5 3C10.24 3 11.81 3.89 12 4C12.19 3.89 13.76 3 15.5 3C18.58 3 21 5.42 21 8.5C21 14.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </article>
+    </li>
+
+    <!-- Карточка 2 — Sale -->
+    <li class="catalog__item">
+      <article class="card" aria-label="Диван Lago">
+        <div class="card__media">
+          <div class="card__images-slider">
+            <img class="card__image" src="img/Lago/1.jfif"  />
+            <img class="card__image" src="img/Lago/2.jfif"  />
+            <img class="card__image" src="img/Lago/3.jfif"  />
+          </div>
+            <span class="card__badge card__badge--sale" aria-label="Скидка">Sale</span>
+          <button class="card__quick-look" type="button" aria-label="Быстрый просмотр дивана Lago">
+            Быстрый просмотр
+          </button>
+        </div>
+
+        <div class="card__meta">
+          <p class="card__category">Диваны / Двухместные</p>
+          <h3 class="card__name">Диван Lago</h3>
+          <p class="card__description">Шерстяная ткань, сталь с матовым покрытием</p>
+
+          <div class="card__pricing">
+            <span class="card__price card__price--sale">218 000 ₽</span>
+            <span class="card__price card__price--old">
+              <s>272 000 ₽</s>
+            </span>
+          </div>
+
+          <div class="card__footer">
+            <button class="card__action" type="button" aria-label="Добавить диван Lago в корзину">
+              В корзину
+            </button>
+            <button class="card__wishlist" type="button" aria-label="Добавить диван Lago в избранное" aria-pressed="false">
+              <svg class="card__wishlist-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 21C12 21 3 14.5 3 8.5C3 5.42 5.42 3 8.5 3C10.24 3 11.81 3.89 12 4C12.19 3.89 13.76 3 15.5 3C18.58 3 21 5.42 21 8.5C21 14.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </article>
+    </li>
+
+    <!-- Карточка 3 — без бейджа -->
+    <li class="catalog__item">
+      <article class="card" aria-label="Стол Bruk">
+        <div class="card__media">
+           <div class="card__images-slider">
+          <img class="card__image" src="img/Bruk/1.jfif"  />
+          <img class="card__image" src="img/Bruk/2.jfif"  />
+          <img class="card__image" src="img/Bruk/3.jfif"  />
+        </div>
+          <button class="card__quick-look" type="button" aria-label="Быстрый просмотр стола Bruk">
+            Быстрый просмотр
+          </button>
+        </div>
+
+        <div class="card__meta">
+          <p class="card__category">Столы / Обеденные</p>
+          <h3 class="card__name">Стол Bruk</h3>
+          <p class="card__description">Массив беленого дуба, чёрная сталь</p>
+
+          <div class="card__pricing">
+            <span class="card__price">196 000 ₽</span>
+          </div>
+
+          <div class="card__footer">
+            <button class="card__action" type="button" aria-label="Добавить стол Bruk в корзину">
+              В корзину
+            </button>
+            <button class="card__wishlist" type="button" aria-label="Добавить стол Bruk в избранное" aria-pressed="false">
+              <svg class="card__wishlist-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 21C12 21 3 14.5 3 8.5C3 5.42 5.42 3 8.5 3C10.24 3 11.81 3.89 12 4C12.19 3.89 13.76 3 15.5 3C18.58 3 21 5.42 21 8.5C21 14.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </article>
+    </li>
+    
+
+  </ul>
+</section>
+
+</body>
+</html>
