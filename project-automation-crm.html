@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кейс | Умный CRM ИИ-Ассистент</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="project-style.css">
+    <link rel="stylesheet" href="automation.css">
+   
+</head>
+<body>
+
+    <!-- Кнопка возврата на главную страницу автоматизации -->
+    <a href="index-automation.html" class="back-btn">← Назад к меню</a>
+
+    <main class="project-page-container">
+        
+        <!-- Шаг 1: Экран демонстрации (Видео кейса) -->
+        <section class="hero-block">
+            <span class="project-tag automation-tag">// КАТЕГОРИЯ: AI Agent / n8n / Роботизация процессов</span>
+            <h1 class="project-main-title">Умный CRM ИИ-Ассистент</h1>
+            
+            <div class="video-container">
+                <iframe 
+                    src="https://drive.google.com/file/d/1Gho8ooZpQUu0YBjF0NP8NiqAYk09ixDW/preview" 
+                    allow="autoplay; fullscreen" 
+                    loading="lazy">
+                </iframe>
+            </div>
+                
+            
+        </section>
+
+        <!-- Шаг 2: Краткое инфо для заказчика / бизнес-логика -->
+        <section class="info-block">
+            <div class="info-item">
+                <h3>Концепт и Задача</h3>
+                <p>Разработать умного ИИ-квалификатора, который ведет живой, неотличимый от человека диалог с входящими лидами в чате, выуживает недостающую информацию и автоматически сохраняет структурированные данные в CRM/базу данных только при 100% заполнении карточки клиента.</p>
+            </div>
+            <div class="info-item">
+                <h3>Архитектурный стек</h3>
+                <p>n8n (Advanced AI Agent Workflow), Gemini API (в качестве LLM-ядра), Simple Memory,   </p>
+            </div>
+        </section>
+
+        <!-- Шаг 3: Архитектурная связка по блокам -->
+        <section class="steps-block">
+            <h2 class="section-title">01 / Техническая архитектура решения</h2>
+            
+            <div class="steps-grid">
+                <!-- Триггер -->
+                <div class="step-card">
+                    <h4>[Входной триггер]</h4>
+                    <p style="margin-top: 10px;"><strong>When chat message received</strong> — гибкий узел, принимающий хаотичные сообщения из кастомного чат-интерфейса или через вебхуки популярных мессенджеров (Telegram / WhatsApp).</p>
+                </div>
+
+                <!-- Ядро ИИ -->
+                <div class="step-card">
+                    <h4>[ИИ Ядро & Контекст]</h4>
+                    <p style="margin-top: 10px;"><strong>AI Agent в режиме Tools Agent</strong> Связан с блоком <strong>Simple Memory</strong>, что гарантирует идеальное удержание контекста беседы без потери нити разговора.</p>
+                </div>
+
+                <!-- Инструмент -->
+                <div class="step-card">
+                    <h4>[Кастомный Экшен]</h4>
+                    <p style="margin-top: 10px;">Инструмент-функция <span class="code-highlight">[[save_lead_data]]</span> для автоматической записи сущности  в базу данных или любую таблицу. Агент имеет жесткую инструкцию вызывать инструмент <strong>только</strong> при сборе полной карточки.</p>
+                </div>
+
+                <!-- Фронтенд -->
+                 
+            </div>
+        </section>
+
+        <!-- Шаг 4: Алгоритм и сценарий демо-ролика -->
+      
+
+    </main>
+
+</body>
+</html>
