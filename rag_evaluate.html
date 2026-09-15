@@ -3,268 +3,403 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Кейс | [Название Проекта]</title>
+    <title>Кейс | RAG Quality Guardian</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="project-style.css">
     <link rel="stylesheet" href="automation.css">
     <style>
-        /* Additional styles for media gallery */
-        .media-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-        
-        .media-item {
-            border-radius: 12px;
+        /* ==========================================
+           СЛАЙД-ШОУ & LIGHTBOX СТИЛИ
+           ========================================== */
+        .slideshow-container {
+            position: relative;
+            max-width: 100%;
+            margin: 24px auto 0 auto;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            background: #fff;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+            background-color: #0d0d0d;
+            user-select: none;
+            touch-action: pan-y;
         }
-        
-        .media-item img,
-        .media-item video,
-        .media-item iframe {
+
+        .slides-wrapper {
+            position: relative;
+            width: 100%;
+            min-height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide-item {
+            display: none;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+
+        .slide-item.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .slide-item img {
             width: 100%;
             height: auto;
+            max-height: 650px;
             display: block;
+            object-fit: contain;
+            cursor: zoom-in;
         }
-        
-        .media-caption {
-            padding: 15px;
-            background: #f8f9fa;
-            font-size: 14px;
-            color: #555;
-        }
-        
-        .tech-stack-grid {
+
+        /* Кнопки Назад / Вперед */
+        .slider-btn {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 15px;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 20px;
+            transition: all 0.25s ease;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            z-index: 10;
+            backdrop-filter: blur(4px);
         }
-        
-        .tech-badge {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+
+        .slider-btn:hover {
+            background-color: rgba(0, 0, 0, 0.85);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-50%) scale(1.08);
+        }
+
+        .prev-btn { left: 16px; }
+        .next-btn { right: 16px; }
+
+        /* Индикаторы (точки) */
+        .dots-container {
+            position: absolute;
+            bottom: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
             padding: 6px 14px;
             border-radius: 20px;
-            font-size: 13px;
-            font-weight: 500;
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
-        .results-section {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            padding: 30px;
-            border-radius: 12px;
-            margin: 30px 0;
+
+        .dot {
+            cursor: pointer;
+            height: 8px;
+            width: 8px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            transition: all 0.3s ease;
         }
-        
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+
+        .dot.active, .dot:hover {
+            background-color: #ffffff;
+            width: 20px;
+            border-radius: 10px;
         }
-        
-        .result-item {
-            text-align: center;
+
+        /* Полноэкранный Lightbox (просмотр по клику) */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(10px);
+            justify-content: center;
+            align-items: center;
             padding: 20px;
-            background: white;
+            box-sizing: border-box;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        .lightbox-modal.open {
+            display: flex;
+        }
+
+        .lightbox-modal img {
+            max-width: 95%;
+            max-height: 95vh;
+            object-fit: contain;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
         }
-        
-        .result-number {
-            font-size: 36px;
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            color: #fff;
+            font-size: 32px;
             font-weight: bold;
-            color: #667eea;
-            display: block;
+            cursor: pointer;
+            transition: color 0.2s;
         }
-        
-        .result-label {
-            font-size: 14px;
-            color: #666;
-            margin-top: 5px;
+
+        .lightbox-close:hover {
+            color: #ff5555;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
 <body>
-    <!-- Кнопка возврата -->
+
+    <!-- Кнопка возврата на главную страницу автоматизации -->
     <a href="index-automation.html" class="back-btn">← Назад к меню</a>
 
     <main class="project-page-container">
         
-        <!-- Шаг 1: Hero Block с Видео -->
+        <!-- Шаг 1: Экран демонстрации (Интерактивное слайд-шоу) -->
         <section class="hero-block">
-            <span class="project-tag automation-tag">// КАТЕГОРИЯ: [Web Development / AI / Automation / Design]</span>
-            <h1 class="project-main-title">[Название Проекта]</h1>
-            <p class="project-subtitle">[Краткое описание проекта в 1-2 предложения]</p>
+            <span class="project-tag automation-tag">// КАТЕГОРИЯ: FastAPI / RAG / Guardrails / n8n / Docker</span>
+            <h1 class="project-main-title">RAG Quality Guardian: Микросервис оценки качества ответов</h1>
             
-            <div class="video-container">
-                <iframe
-                    src="https://drive.google.com/file/d/[YOUR_VIDEO_ID]/preview"
-                    allow="autoplay; fullscreen"
-                    loading="lazy">
-                </iframe>
+            <div class="slideshow-container" id="slideshow">
+                <div class="slides-wrapper">
+    <!-- Только первый слайд active -->
+    <div class="slide-item active">
+        <img src="img/n8n_evaluate/2.png" alt="Скриншот 1">
+    </div>
+    <div class="slide-item">
+        <img src="img/n8n_evaluate/3.png" alt="Скриншот 2">
+    </div>
+    <div class="slide-item">
+        <img src="img/n8n_evaluate/4.png" alt="Скриншот 3">
+    </div>
+    <div class="slide-item">
+        <img src="img/n8n_evaluate/5.png" alt="Скриншот 4">
+    </div>
+    <div class="slide-item">
+        <img src="img/n8n_evaluate/6.png" alt="Скриншот 5">
+    </div>
+</div>
+
+<!-- 5 точек под 5 слайдов -->
+<div class="dots-container" id="dotsContainer">
+    <span class="dot active" data-index="0"></span>
+    <span class="dot" data-index="1"></span>
+    <span class="dot" data-index="2"></span>
+    <span class="dot" data-index="3"></span>
+    <span class="dot" data-index="4"></span>
+</div>
+                <!-- Кнопки Навигации -->
+                <button class="slider-btn prev-btn" id="prevBtn" aria-label="Предыдущий слайд">&#10094;</button>
+                <button class="slider-btn next-btn" id="nextBtn" aria-label="Следующий слайд">&#10095;</button>
+
+                <!-- Индикаторы (точки) -->
+                 
             </div>
         </section>
 
-        <!-- Шаг 2: Основная информация -->
+        <!-- Шаг 2: Краткое инфо для заказчика / бизнес-логика -->
         <section class="info-block">
             <div class="info-item">
-                <h3> Концепт и Задача</h3>
-                <p>[Опишите проблему клиента и вашу задачу. Что нужно было сделать? Какие были ограничения?]</p>
+                <h3>Концепт и Задача</h3>
+                <p>Разработать автоматизированный Guardrail-микросервис для защиты RAG-систем от галлюцинаций и нерелевантных ответов. Сервис измеряет показатели Faithfulness (достоверность) и Answer Relevance (релевантность), отдавая строгий статус <code>pass</code> или <code>fail</code> для алгоритмов автокоррекции в n8n.</p>
             </div>
-            
             <div class="info-item">
-                <h3>🛠 Технологический стек</h3>
-                <div class="tech-stack-grid">
-                    <span class="tech-badge">React</span>
-                    <span class="tech-badge">Node.js</span>
-                    <span class="tech-badge">MongoDB</span>
-                    <span class="tech-badge">n8n</span>
-                    <span class="tech-badge">Gemini API</span>
-                    <!-- Добавьте ваши технологии -->
-                </div>
-            </div>
-            
-            <div class="info-item">
-                <h3>⏱ Срок реализации</h3>
-                <p>[Например: 3 недели]</p>
+                <h3>Архитектурный стек</h3>
+                <p>FastAPI, Pydantic v2, Google Gemini Flash (Structured Outputs), n8n, Qdrant Vector Store, Pytest, Docker</p>
             </div>
         </section>
 
-        <!-- Шаг 3: Галерея медиа (GIFs + Images) -->
+        <!-- Шаг 3: Архитектурная связка по блокам -->
         <section class="steps-block">
-            <h2 class="section-title">02 / Демонстрация возможностей</h2>
-            
-            <div class="media-gallery">
-                <!-- GIF 1 -->
-                <div class="media-item">
-                    <img src="img/your-animation.gif" alt="Описание анимации">
-                    <div class="media-caption">📌 [Что демонстрирует этот GIF]</div>
-                </div>
-                
-                <!-- Image 1 -->
-                <div class="media-item">
-                    <img src="img/screenshot-1.png" alt="Скриншот интерфейса">
-                    <div class="media-caption">📌 [Основной экран / Dashboard]</div>
-                </div>
-                
-                <!-- GIF 2 -->
-                <div class="media-item">
-                    <img src="img/interaction.gif" alt="Интерактивность">
-                    <div class="media-caption">📌 [Интерактивный элемент]</div>
-                </div>
-                
-                <!-- Image 2 -->
-                <div class="media-item">
-                    <img src="img/architecture.png" alt="Архитектура">
-                    <div class="media-caption"> [Схема архитектуры]</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Шаг 4: Техническая архитектура -->
-        <section class="steps-block">
-            <h2 class="section-title">03 / Техническая архитектура решения</h2>
+            <h2 class="section-title">01 / Техническая архитектура решения</h2>
             
             <div class="steps-grid">
+                <!-- Блок 1: Поиск и Очистка -->
                 <div class="step-card">
-                    <h4>[Компонент 1]</h4>
-                    <p style="margin-top: 10px;">[Описание компонента и его роли в системе]</p>
+                    <h4>[1. Входной поток & Поиск]</h4>
+                    <p style="margin-top: 10px;">Запрос пользователя поступает в n8n. AI Agent извлекает контекст из векторной базы <strong>Qdrant</strong>. Нода <span class="code-highlight">Normalize data</span> очищает сырой контекст и формирует чистый бандл: вопрос, найденный контекст и сгенерированный ответ.</p>
                 </div>
-                
-                <div class="step-card">
-                    <h4>[Компонент 2]</h4>
-                    <p style="margin-top: 10px;">[Описание компонента и его роли в системе]</p>
-                </div>
-                
-                <div class="step-card">
-                    <h4>[Компонент 3]</h4>
-                    <p style="margin-top: 10px;">[Описание компонента и его роли в системе]</p>
-                </div>
-                
-                <div class="step-card">
-                    <h4>[Компонент 4]</h4>
-                    <p style="margin-top: 10px;">[Описание компонента и его роли в системе]</p>
-                </div>
-            </div>
-        </section>
 
-        <!-- Шаг 5: Результаты и метрики -->
-        <section class="results-section">
-            <h2 class="section-title">04 / Результаты проекта</h2>
-            
-            <div class="results-grid">
-                <div class="result-item">
-                    <span class="result-number">+40%</span>
-                    <div class="result-label">Увеличение конверсии</div>
+                <!-- Блок 2: FastAPI & Валидация -->
+                <div class="step-card">
+                    <h4>[2. FastAPI & Pydantic v2]</h4>
+                    <p style="margin-top: 10px;">Данные передаются через субворкфлоу <strong>ScoredRAG</strong> в микросервис на FastAPI. Модель <strong>Pydantic v2</strong> осуществляет строгую валидацию входных полей, отсекая пустые данные и некорректные статусы типа <i>"no context found"</i>.</p>
                 </div>
-                
-                <div class="result-item">
-                    <span class="result-number">3ч</span>
-                    <div class="result-label">Экономия времени в неделю</div>
-                </div>
-                
-                <div class="result-item">
-                    <span class="result-number">95%</span>
-                    <div class="result-label">Точность данных</div>
-                </div>
-                
-                <div class="result-item">
-                    <span class="result-number">24/7</span>
-                    <div class="result-label">Автоматизация процессов</div>
-                </div>
-            </div>
-            
-            <div style="margin-top: 30px;">
-                <h3> Ключевые достижения:</h3>
-                <ul style="line-height: 2; margin-top: 15px;">
-                    <li>✅ [Достижение 1: например, Полная автоматизация сбора лидов]</li>
-                    <li>✅ [Достижение 2: например, Интеграция с 5+ внешними сервисами]</li>
-                    <li>✅ [Достижение 3: например, Снижение человеческих ошибок на 90%]</li>
-                    <li>✅ [Достижение 4: например, Масштабируемая архитектура]</li>
-                </ul>
-            </div>
-        </section>
 
-        <!-- Шаг 6: Код и примеры (опционально) -->
-        <section class="steps-block">
-            <h2 class="section-title">05 / Примеры кода</h2>
-            
-            <div style="background: #1e1e1e; padding: 20px; border-radius: 8px; overflow-x: auto;">
-                <pre style="color: #d4d4d4; font-family: 'Courier New', monospace; font-size: 14px;">
-<code>// Пример ключевого кода
-const example = async () => {
-  const result = await processAI(data);
-  return transformResult(result);
-};</code>
-                </pre>
-            </div>
-        </section>
+                <!-- Блок 3: ИИ Оценка -->
+                <div class="step-card">
+                    <h4>[3. Gemini Structured Outputs]</h4>
+                    <p style="margin-top: 10px;">Микросервис отправляет промпт в <strong>Google Gemini Flash</strong> в режиме гарантии схемы JSON. ИИ рассчитывает метрики <i>Faithfulness</i> и <i>Answer Relevance</i> (от 0.0 до 1.0), генерирует <code>reasoning</code> и итоговый статус <code>pass/fail</code>.</p>
+                </div>
 
-        <!-- Шаг 7: CTA / Ссылки -->
-        <section style="text-align: center; padding: 40px 20px;">
-            <h2>Заинтересовал проект?</h2>
-            <p style="margin: 20px 0;">Готов обсудить детали и ответить на вопросы</p>
-            
-            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                <a href="https://github.com/Nomand-code" target="_blank" 
-                   style="display: inline-block; padding: 12px 30px; background: #333; color: white; 
-                          text-decoration: none; border-radius: 6px; font-weight: 500;">
-                    🔗 GitHub
-                </a>
-                <a href="mailto:your.email@example.com" 
-                   style="display: inline-block; padding: 12px 30px; background: #667eea; color: white; 
-                          text-decoration: none; border-radius: 6px; font-weight: 500;">
-                    📧 Связаться
-                </a>
+                <!-- Блок 4: Оркестрация и Self-Correction -->
+                <div class="step-card">
+                    <h4>[4. Автоматическая коррекция]</h4>
+                    <p style="margin-top: 10px;">Если сервис возвращает <strong>fail</strong>, n8n передает агенту текстовое обоснование ошибки (reasoning) для повторной генерации ответа. При статусе <strong>pass</strong> проверенный ответ отдается пользователю.</p>
+                </div>
             </div>
         </section>
 
     </main>
+
+    <!-- Полноэкранный модальный просмотр -->
+    <div class="lightbox-modal" id="lightboxModal">
+        <span class="lightbox-close" id="lightboxClose">&times;</span>
+        <img id="lightboxImg" src="" alt="Увеличенное изображение">
+    </div>
+
+    <!-- Скрипт слайдера и интерактивности -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slideshow = document.getElementById('slideshow');
+            const slides = document.querySelectorAll('.slide-item');
+            const dots = document.querySelectorAll('.dot');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            const lightboxModal = document.getElementById('lightboxModal');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const lightboxClose = document.getElementById('lightboxClose');
+
+            let currentIndex = 0;
+            let autoSlideInterval = null;
+            const AUTO_SLIDE_DELAY = 5000; // 5 секунд
+
+            function renderSlide(index) {
+                if (slides.length === 0) return;
+
+                if (index >= slides.length) currentIndex = 0;
+                else if (index < 0) currentIndex = slides.length - 1;
+                else currentIndex = index;
+
+                slides.forEach((slide, idx) => {
+                    slide.classList.toggle('active', idx === currentIndex);
+                });
+
+                dots.forEach((dot, idx) => {
+                    dot.classList.toggle('active', idx === currentIndex);
+                });
+            }
+
+            function nextSlide() {
+                renderSlide(currentIndex + 1);
+            }
+
+            function prevSlide() {
+                renderSlide(currentIndex - 1);
+            }
+
+            // Автопрокрутка
+            function startAutoplay() {
+                stopAutoplay();
+                autoSlideInterval = setInterval(nextSlide, AUTO_SLIDE_DELAY);
+            }
+
+            function stopAutoplay() {
+                if (autoSlideInterval) clearInterval(autoSlideInterval);
+            }
+
+            // Обработчики кнопок
+            nextBtn.addEventListener('click', () => {
+                nextSlide();
+                startAutoplay();
+            });
+
+            prevBtn.addEventListener('click', () => {
+                prevSlide();
+                startAutoplay();
+            });
+
+            // Клики по точкам
+            dots.forEach(dot => {
+                dot.addEventListener('click', (e) => {
+                    const idx = parseInt(e.target.getAttribute('data-index'), 10);
+                    renderSlide(idx);
+                    startAutoplay();
+                });
+            });
+
+            // Пауза при наведении
+            slideshow.addEventListener('mouseenter', stopAutoplay);
+            slideshow.addEventListener('mouseleave', startAutoplay);
+
+            // Управление стрелками клавиатуры
+            document.addEventListener('keydown', (e) => {
+                if (lightboxModal.classList.contains('open')) {
+                    if (e.key === 'Escape') closeLightbox();
+                    return;
+                }
+
+                if (e.key === 'ArrowRight') {
+                    nextSlide();
+                    startAutoplay();
+                } else if (e.key === 'ArrowLeft') {
+                    prevSlide();
+                    startAutoplay();
+                }
+            });
+
+            // Свайпы для мобильных устройств
+            let startX = 0;
+            let endX = 0;
+
+            slideshow.addEventListener('touchstart', (e) => {
+                startX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            slideshow.addEventListener('touchend', (e) => {
+                endX = e.changedTouches[0].screenX;
+                const diff = startX - endX;
+
+                if (Math.abs(diff) > 40) { // Порог свайпа 40px
+                    if (diff > 0) nextSlide();
+                    else prevSlide();
+                    startAutoplay();
+                }
+            }, { passive: true });
+
+            // Lightbox (просмотр на весь экран)
+            slides.forEach(slide => {
+                const img = slide.querySelector('img');
+                if (img) {
+                    img.addEventListener('click', () => {
+                        lightboxImg.src = img.src;
+                        lightboxModal.classList.add('open');
+                        stopAutoplay();
+                    });
+                }
+            });
+
+            function closeLightbox() {
+                lightboxModal.classList.remove('open');
+                startAutoplay();
+            }
+
+            lightboxClose.addEventListener('click', closeLightbox);
+            lightboxModal.addEventListener('click', (e) => {
+                if (e.target === lightboxModal) closeLightbox();
+            });
+
+            // Запуск автоплея при старте
+            startAutoplay();
+        });
+    </script>
 </body>
 </html>
